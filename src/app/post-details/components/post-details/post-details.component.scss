@@ -1,0 +1,59 @@
+div.one {
+  padding: 40px 120px;
+}
+
+mat-card {
+  box-shadow: none;
+  border-radius: 8px;
+}
+
+.image-container {
+  height: 230px;
+  position: relative;
+}
+
+.sobrepoe-imagem {
+  position: absolute;
+  color: #ffffff;
+  padding: 25px 35px 35px 35px;
+}
+
+strong {
+  font-size: 32px;
+}
+
+.user-details {
+  text-decoration: underline;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+img#image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+mat-icon {
+  transform: scale(1.5);
+}
+
+.go {
+  margin-left: 10px;
+}
+
+.text-container {
+  padding: 45px 40px;
+  font-size: 18px;
+}
+
+.comment {
+  padding: 0 40px;
+}
+
+.title-comment {
+  margin-bottom: 20px;
+  font-size: 18px;
+}

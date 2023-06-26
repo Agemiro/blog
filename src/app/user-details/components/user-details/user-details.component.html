@@ -1,0 +1,38 @@
+<app-header />
+<div class="one">
+  <mat-card *ngIf="author">
+    <div class="header">
+      <div class="user-data">
+        <span id="circle"></span>
+        <div>
+          <div>
+            <span>{{ author.name }}</span>
+          </div>
+          <div class="job">
+            <span>{{ author.job }}</span>
+          </div>
+        </div>
+      </div>
+      <app-back-post-list-page />
+    </div>
+    <mat-divider />
+    <div class="content">
+      <div class="posts">
+        <span>All Posts from {{ author.name }}:</span>
+      </div>
+      <app-post-card
+        *ngIf="data$ | async as data"
+        [contents]="data"
+        (see)="onPostDetails($event)"
+      ></app-post-card>
+    </div>
+    <mat-divider />
+    <div class="title-comment">
+      <span>Comments:</span>
+    </div>
+    <app-comments
+      *ngIf="comments$ | async as data"
+      [comments]="data"
+    ></app-comments>
+  </mat-card>
+</div>

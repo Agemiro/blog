@@ -1,0 +1,17 @@
+<div class="item" *ngFor="let item of comments">
+  <div class="user-data">
+    <span id="circle"></span>
+    <div>
+      <div>
+        <span>{{ item.author.name }}</span>
+      </div>
+      <div class="job">
+        <span>{{ item.author.job }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="comment-content">
+    <span>{{ item.comment }}</span>
+  </div>
+  <mat-divider />
+</div>

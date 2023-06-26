@@ -1,0 +1,45 @@
+div.one {
+  padding: 40px 120px;
+}
+
+mat-card {
+  padding: 35px;
+  box-shadow: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.posts {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+mat-divider {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.user-data {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#circle {
+  border: solid #e2e8f0 1px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+}
+
+.job {
+  color: #64748b;
+}
+
+.title-comment {
+  margin-bottom: 20px;
+  font-size: 18px;
+}

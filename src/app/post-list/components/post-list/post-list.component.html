@@ -1,0 +1,8 @@
+<app-header />
+<div class="one">
+  <app-post-card
+    *ngIf="data$ | async as data"
+    [contents]="data['data']"
+    (see)="onPostDetails($event)"
+  ></app-post-card>
+</div>

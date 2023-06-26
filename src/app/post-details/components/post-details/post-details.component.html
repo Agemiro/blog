@@ -1,0 +1,32 @@
+<app-header />
+<div class="one">
+  <mat-card *ngIf="content">
+    <div class="image-container">
+      <div class="sobrepoe-imagem">
+        <app-back-post-list-page />
+        <div>
+          <strong>{{ content.title }}</strong>
+        </div>
+        <div>
+          <span>Written by: </span>
+          <span class="user-details" (click)="onUserDetails(content.author)"
+            ><i>{{ content.author.name }}</i>
+          </span>
+        </div>
+        <div>
+          <span>{{ content.comments.length }} comments</span>
+        </div>
+      </div>
+      <img id="image" [src]="content.image" alt="" />
+    </div>
+    <div class="text-container">
+      <span>{{ content.body }}</span>
+    </div>
+    <div class="comment">
+      <div class="title-comment">
+        <span>Comments:</span>
+      </div>
+      <app-comments [comments]="content.comments"></app-comments>
+    </div>
+  </mat-card>
+</div>
