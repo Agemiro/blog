@@ -1,8 +1,7 @@
 <app-header />
-<div class="one">
-  <app-post-card
-    *ngIf="data$ | async as data"
-    [contents]="data['data']"
-    (see)="onPostDetails($event)"
-  ></app-post-card>
+<div class="one" *ngIf="data$ | async as content">
+  <div *ngIf="isLoading$ | async">Carregando dados...</div>
+  <div *ngIf="error$ | async">Erro ao carregar os dados.</div>
+  <app-post-card [data]="content.data" (postDetails)="onPostDetails($event)">
+  </app-post-card>
 </div>

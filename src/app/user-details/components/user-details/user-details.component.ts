@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { PostListService } from 'src/app/shared/services/post-list.service';
-import { Author, Comment, Content } from 'src/app/types/data';
+import { select, Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
+import { dataSelector } from 'src/app/store/post-list.selectors';
+import { AppState } from 'src/app/interfaces/app.state.interface';
+import { Author, Comment, Content } from 'src/app/interfaces/data.interface';
 
 @Component({
   selector: 'app-user-details',
@@ -16,13 +18,26 @@ export class UserDetailsComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private postListService: PostListService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   filterList(userName: string) {
-    this.data$ = this.postListService.filterListOfPostsByUser(userName);
-    this.comments$ = this.postListService.filterListOfCommentsByUser(userName);
+    this.data$ = this.store
+      .pipe(select(dataSelector))
+      .pipe(
+        map((element) =>
+          element.data.filter((item) => item.author.username === userName)
+        )
+      );
+    this.comments$ = this.store.pipe(select(dataSelector)).pipe(
+      map((element) =>
+        element.data
+          .map((item) => item.comments)
+          .flat()
+          .filter((comment) => comment.author.username === userName)
+      )
+    );
   }
 
   ngOnInit(): void {

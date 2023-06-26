@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { PostListService } from '../../../shared/services/post-list.service';
-import { Data, Content } from 'src/app/types/data';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/interfaces/app.state.interface';
+import { Content, Data } from 'src/app/interfaces/data.interface';
+
+import { getData } from '../../../store/post-list.actions';
+import {
+  dataSelector,
+  errorSelector,
+  isLoadingSelector,
+} from '../../../store/post-list.selectors';
 
 @Component({
   selector: 'app-post-list',
@@ -10,22 +18,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./post-list.component.scss'],
 })
 export class PostListComponent implements OnInit {
-  data$: Observable<Data> | null = null;
+  isLoading$: Observable<boolean>;
+  error$: Observable<string | null>;
+  data$: Observable<Data>;
 
-  constructor(
-    private postListService: PostListService,
-    private router: Router
-  ) {
-    this.list();
-  }
-  ngOnInit(): void {}
-
-  list() {
-    this.data$ = this.postListService.list();
+  constructor(private router: Router, private store: Store<AppState>) {
+    this.isLoading$ = this.store.pipe(select(isLoadingSelector));
+    this.error$ = this.store.pipe(select(errorSelector));
+    this.data$ = this.store.pipe(select(dataSelector));
   }
 
+  ngOnInit(): void {
+    this.store.dispatch(getData());
+  }
+
+  // Passo para a página de detalhes de post exatamente o post que foi clicado através do post card.
   onPostDetails(content: Content) {
-    const objString = JSON.stringify(content);
-    this.router.navigate(['post-details', { objString }]);
+    const postContentObjectString = JSON.stringify(content);
+    this.router.navigate([
+      'post-details',
+      { objString: postContentObjectString },
+    ]);
   }
 }

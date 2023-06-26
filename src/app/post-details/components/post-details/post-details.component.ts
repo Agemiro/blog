@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Author, Content } from 'src/app/types/data';
+import { Author, Content } from 'src/app/interfaces/data.interface';
 
 @Component({
   selector: 'app-post-details',
@@ -14,14 +14,10 @@ export class PostDetailsComponent {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const objString = params.get('objString')!;
-      const obj = JSON.parse(objString);
-      this.content = obj;
+      const postContentObjectString = params.get('objString')!;
+      const jsonObject = JSON.parse(postContentObjectString);
+      this.content = jsonObject;
     });
-  }
-
-  onBackPageList() {
-    this.router.navigate(['post-list']);
   }
 
   onUserDetails(author: Author) {

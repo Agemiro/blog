@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Content } from 'src/app/types/data';
+import { Content } from 'src/app/interfaces/data.interface';
 
 @Component({
   selector: 'app-post-card',
@@ -7,10 +7,10 @@ import { Content } from 'src/app/types/data';
   styleUrls: ['./post-card.component.scss'],
 })
 export class PostCardComponent {
-  @Input() contents: Content[] = [];
-  @Output() see = new EventEmitter(false);
+  @Input() data: Content[] = [];
+  @Output() postDetails = new EventEmitter(false);
 
   onPostDetails(content: Content) {
-    this.see.emit(content);
+    this.postDetails.emit(content);
   }
 }
