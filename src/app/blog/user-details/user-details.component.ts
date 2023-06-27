@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
-import { dataSelector } from 'src/app/store/post-list.selectors';
-import { AppState } from 'src/app/interfaces/app.state.interface';
-import { Author, Comment, Content } from 'src/app/interfaces/data.interface';
+import { dataSelector } from 'src/app/blog/store/post-list.selectors';
+
+import { AppState } from '../../interfaces/app.state.interface';
+import { Author, Comment, Content } from '../../interfaces/data.interface';
 
 @Component({
   selector: 'app-user-details',

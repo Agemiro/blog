@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState } from 'src/app/interfaces/app.state.interface';
-import { Content, Data } from 'src/app/interfaces/data.interface';
 
-import { getData } from '../../../store/post-list.actions';
+import { AppState } from '../../interfaces/app.state.interface';
+import { Content, Data } from '../../interfaces/data.interface';
+import { getData } from '../store/post-list.actions';
 import {
   dataSelector,
   errorSelector,
   isLoadingSelector,
-} from '../../../store/post-list.selectors';
+} from '../store/post-list.selectors';
 
 @Component({
   selector: 'app-post-list',

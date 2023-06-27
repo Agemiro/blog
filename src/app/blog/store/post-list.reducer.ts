@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { DataState } from 'src/app/interfaces/data.state.interface';
+
 import { getData, getDataError, getDataSuccess } from './post-list.actions';
 
 export const initialState: DataState = {

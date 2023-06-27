@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Author, Content } from 'src/app/interfaces/data.interface';
+
+import { Author, Content } from '../../interfaces/data.interface';
 
 @Component({
   selector: 'app-post-details',
