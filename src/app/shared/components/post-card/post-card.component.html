@@ -1,20 +1,20 @@
 <div class="grid-list">
-  <mat-card *ngFor="let item of data">
+  <mat-card *ngFor="let post of posts">
     <div class="card-content">
       <div class="side-one">
-        <img [src]="item.image" alt="image" />
+        <img [src]="post.image" alt="image" />
       </div>
       <div class="side-two">
         <div class="text">
-          <strong id="post-title">{{ item.title }}</strong>
+          <strong id="post-title">{{ post.title }}</strong>
         </div>
         <div class="text">
-          <span>{{ item.author.name }}</span>
+          <span>{{ post.author.name }}</span>
         </div>
         <div class="description">
-          <span>{{ item.body }}</span>
+          <span>{{ post.body }}</span>
         </div>
-        <button (click)="onPostDetails(item)">READ</button>
+        <button (click)="onPostDetails(post.id)">READ</button>
       </div>
     </div>
   </mat-card>

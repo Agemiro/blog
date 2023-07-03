@@ -1,26 +1,30 @@
 <app-header />
 <div class="one">
-  <mat-card *ngIf="author">
+  <div *ngIf="isLoadingPosts$ | async">Carregando posts...</div>
+  <div *ngIf="postsError$ | async">Erro ao carregar os posts.</div>
+  <div *ngIf="isLoadingComments$ | async">Carregando comentários...</div>
+  <div *ngIf="commentsError$ | async">Erro ao carregar os comentários.</div>
+  <mat-card *ngIf="posts$ | async as posts">
     <div class="header">
       <div class="user-data">
         <span id="circle"></span>
         <div>
           <div>
-            <span>{{ author.name }}</span>
+            <span>{{ posts[0].author.name }}</span>
           </div>
           <div class="job">
-            <span>{{ author.job }}</span>
+            <span>{{ posts[0].author.job }}</span>
           </div>
         </div>
       </div>
       <app-back-post-list-page />
     </div>
     <mat-divider />
-    <div class="content" *ngIf="data$ | async as content">
+    <div class="content" *ngIf="posts$ | async as posts">
       <div class="posts">
-        <span>All Posts from {{ author.name }}:</span>
+        <span>All Posts from {{ posts[0].author.name }}:</span>
       </div>
-      <app-post-card [data]="content" (postDetails)="onPostDetails($event)">
+      <app-post-card [posts]="posts" (postDetails)="onPostDetails($event)">
       </app-post-card>
     </div>
     <mat-divider />
@@ -28,8 +32,8 @@
       <span>Comments:</span>
     </div>
     <app-comments
-      *ngIf="comments$ | async as data"
-      [comments]="data"
+      *ngIf="comments$ | async as comments"
+      [comments]="comments"
     ></app-comments>
   </mat-card>
 </div>

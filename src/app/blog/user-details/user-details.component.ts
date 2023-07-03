@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
-import { dataSelector } from 'src/app/blog/store/post-list.selectors';
+import { Observable } from 'rxjs';
 
-import { AppState } from '../../interfaces/app.state.interface';
-import { Author, Comment, Content } from '../../interfaces/data.interface';
+import { AppState } from '../../types/app.state.interface';
+import { Comment, Post } from '../../types/data.interface';
+import {
+  getCommentsByAuthor,
+  getPostsByAuthor,
+} from '../store/post-list.actions';
+import * as postSelector from '../store/post-list.selectors';
 
 @Component({
   selector: 'app-user-details',
@@ -13,45 +17,46 @@ import { Author, Comment, Content } from '../../interfaces/data.interface';
   styleUrls: ['./user-details.component.scss'],
 })
 export class UserDetailsComponent {
-  data$: Observable<Content[]> | null = null;
+  posts$: Observable<Post[]> | null = null;
+  isLoadingPosts$: Observable<boolean>;
+  postsError$: Observable<string | null>;
+
   comments$: Observable<Comment[]> | null = null;
-  author: Author | null = null;
+  isLoadingComments$: Observable<boolean>;
+  commentsError$: Observable<string | null>;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private store: Store<AppState>
-  ) {}
-
-  filterList(userName: string) {
-    this.data$ = this.store
-      .pipe(select(dataSelector))
-      .pipe(
-        map((element) =>
-          element.data.filter((item) => item.author.username === userName)
-        )
-      );
-    this.comments$ = this.store.pipe(select(dataSelector)).pipe(
-      map((element) =>
-        element.data
-          .map((item) => item.comments)
-          .flat()
-          .filter((comment) => comment.author.username === userName)
-      )
+  ) {
+    this.posts$ = this.store.pipe(select(postSelector.PostsByAuthorSelector));
+    this.isLoadingPosts$ = this.store.pipe(
+      select(postSelector.isLoadingPostsByAuthorSelector)
+    );
+    this.postsError$ = this.store.pipe(
+      select(postSelector.PostsByAuthorErrorSelector)
+    );
+    this.comments$ = this.store.pipe(
+      select(postSelector.CommentsByAuthorSelector)
+    );
+    this.isLoadingComments$ = this.store.pipe(
+      select(postSelector.isLoadingCommentsByAuthorSelector)
+    );
+    this.commentsError$ = this.store.pipe(
+      select(postSelector.CommentsByAuthorErrorSelector)
     );
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const objString = params.get('authorObjectString')!;
-      const obj = JSON.parse(objString);
-      this.author = obj;
-      this.filterList(obj.username);
+      var username = params.get('authorUserName')!;
+      this.store.dispatch(getPostsByAuthor({ authorUserName: username }));
+      this.store.dispatch(getCommentsByAuthor({ authorUserName: username }));
     });
   }
 
-  onPostDetails(content: Content) {
-    const objString = JSON.stringify(content);
-    this.router.navigate(['post-details', { objString }]);
+  onPostDetails(postId: string) {
+    this.router.navigate(['post-details', { postId }]);
   }
 }

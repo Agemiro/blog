@@ -1,17 +1,17 @@
-<div class="item" *ngFor="let item of comments">
+<div class="itdemd" *ngFor="let comment of comments">
   <div class="user-data">
     <span id="circle"></span>
     <div>
       <div>
-        <span>{{ item.author.name }}</span>
+        <span>{{ comment.author.name }}</span>
       </div>
       <div class="job">
-        <span>{{ item.author.job }}</span>
+        <span>{{ comment.author.job }}</span>
       </div>
     </div>
   </div>
   <div class="comment-content">
-    <span>{{ item.comment }}</span>
+    <span>{{ comment.comment }}</span>
   </div>
   <mat-divider />
 </div>

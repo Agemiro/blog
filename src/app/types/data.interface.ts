@@ -10,7 +10,7 @@ export interface Comment {
   id: string;
 }
 
-export interface Content {
+export interface Post {
   author: Author;
   body: string;
   comments: Comment[];
@@ -20,7 +20,7 @@ export interface Content {
 }
 
 export interface Data {
-  data: Content[];
+  data: Post[];
   success: boolean;
   total: string;
 }

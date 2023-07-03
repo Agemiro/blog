@@ -1,32 +1,36 @@
 <app-header />
 <div class="one">
-  <mat-card *ngIf="content">
+  <div *ngIf="isLoading$ | async">Carregando post...</div>
+  <div *ngIf="error$ | async">Erro ao carregar post.</div>
+  <mat-card *ngIf="post$ | async as post">
     <div class="image-container">
       <div class="sobrepoe-imagem">
         <app-back-post-list-page />
         <div>
-          <strong>{{ content.title }}</strong>
+          <strong>{{ post.title }}</strong>
         </div>
         <div>
           <span>Written by: </span>
-          <span class="user-details" (click)="onUserDetails(content.author)"
-            ><i>{{ content.author.name }}</i>
+          <span
+            class="user-details"
+            (click)="onUserDetails(post.author.username)"
+            ><i>{{ post.author.name }}</i>
           </span>
         </div>
         <div>
-          <span>{{ content.comments.length }} comments</span>
+          <span>{{ post.comments.length }} comments</span>
         </div>
       </div>
-      <img id="image" [src]="content.image" alt="" />
+      <img id="image" [src]="post.image" alt="" />
     </div>
     <div class="text-container">
-      <span>{{ content.body }}</span>
+      <span>{{ post.body }}</span>
     </div>
     <div class="comment">
       <div class="title-comment">
         <span>Comments:</span>
       </div>
-      <app-comments [comments]="content.comments"></app-comments>
+      <app-comments [comments]="post.comments"></app-comments>
     </div>
   </mat-card>
 </div>

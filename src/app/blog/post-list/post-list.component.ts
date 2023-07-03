@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState } from '../../interfaces/app.state.interface';
-import { Content, Data } from '../../interfaces/data.interface';
+import { AppState } from '../../types/app.state.interface';
+import { Data } from '../../types/data.interface';
 import { getData } from '../store/post-list.actions';
 import {
   dataSelector,
@@ -32,12 +32,7 @@ export class PostListComponent implements OnInit {
     this.store.dispatch(getData());
   }
 
-  // Passo para a página de detalhes de post exatamente o post que foi clicado através do post card.
-  onPostDetails(content: Content) {
-    const postContentObjectString = JSON.stringify(content);
-    this.router.navigate([
-      'post-details',
-      { objString: postContentObjectString },
-    ]);
+  onPostDetails(postId: string) {
+    this.router.navigate(['post-details', { postId }]);
   }
 }
